@@ -106,7 +106,6 @@ def test():
 
     for i in range(len(data)):
         cluster(data[i])
-test()
 
 def test_no_clustering(x):
     #print(f"Genre of test: {genreID_toString(x[1])}")
@@ -116,17 +115,17 @@ def test_no_clustering(x):
     #print(f"Resulting genre: {genreID_toString(result)}")
     return x[1] == result
 
+# To Daniel: Fixed so I could import knn.py-functions without running the testing code.
+if __name__ == "__main__":
+    train_features, test_features = import_data("./data/GenreClassData_30s.txt")
+    train_features = train_features.to_numpy()
+    test_features = test_features.to_numpy()    
 
+    counts = [0,0]
+    for i in range(len(test_features)):
+        res = int(test_no_clustering(test_features[i]))
+        counts[res] += 1
 
-train_features, test_features = import_data("./data/GenreClassData_30s.txt")
-train_features = train_features.to_numpy()
-test_features = test_features.to_numpy()    
-
-counts = [0,0]
-for i in range(len(test_features)):
-    res = int(test_no_clustering(test_features[i]))
-    counts[res] += 1
-
-plt.bar(["Wrong","Correct"], counts)
-plt.show()
+    plt.bar(["Wrong","Correct"], counts)
+    plt.show()
 
