@@ -12,14 +12,14 @@ def fetch_features():
     disco = classes[2]
     classical = classes[5]
 
-    pop_features = pop.to_numpy()[:, 2:6]
-    metal_features = metal.to_numpy()[:, 2:6]
-    disco_features = disco.to_numpy()[:, 2:6]
-    classical_features = classical.to_numpy()[:, 2:6]
+    pop_features = pop.to_numpy()[:, 2:9]
+    metal_features = metal.to_numpy()[:, 2:9]
+    disco_features = disco.to_numpy()[:, 2:9]
+    classical_features = classical.to_numpy()[:, 2:9]
 
     return pop_features, metal_features, disco_features, classical_features
 
-# Plotting all genres over each other
+# Plotting all genres overlaying each other
 def plot_histogram_overlay(genre, ax, color, label):
     N = 20
     
@@ -84,17 +84,29 @@ def plot_feature_histogram(pop, metal, disco, classical, ax, fig, color, title, 
 def visualize_distribution():
     pop, metal, disco, classical = fetch_features()
     
-    fig0, ax0 = plt.subplots(4, 1)
+    fig0, ax0 = plt.subplots(7, 1)
     plot_feature_histogram(pop, metal, disco, classical, ax0, fig0, 'blue', 'Spectral Rolloff Mean Histogram', 0)
     
-    fig1, ax1 = plt.subplots(4, 1)
+    fig1, ax1 = plt.subplots(7, 1)
     plot_feature_histogram(pop, metal, disco, classical, ax1, fig1, 'orange', 'Mel-frequency Cepstrum Mean Histogram', 1)
 
-    fig2, ax2 = plt.subplots(4, 1)
+    fig2, ax2 = plt.subplots(7, 1)
     plot_feature_histogram(pop, metal, disco, classical, ax2, fig2, 'purple', 'Spectral Controid Mean Histogram', 2)
 
-    fig3, ax3 = plt.subplots(4, 1)
-    plot_feature_histogram(pop, metal, disco, classical, ax3, fig3, 'green', 'Tempo Histogram', 3)
+    fig6, ax6 = plt.subplots(7, 1)
+    plot_feature_histogram(pop, metal, disco, classical, ax6, fig6, 'green', 'Tempo Histogram', 3)
+
+    # below: only to review data, keep only four features for task 3
+    '''
+    fig4, ax4 = plt.subplots(7, 1)
+    plot_feature_histogram(pop, metal, disco, classical, ax4, fig4, 'yellow', 'Mel-frequency Cepstrum Std Histogram', 4)
+
+    fig5, ax5 = plt.subplots(7, 1)
+    plot_feature_histogram(pop, metal, disco, classical, ax5, fig5, 'orange', 'Spectral Contrast Mean Histogram', 5)
+
+    fig6, ax6 = plt.subplots(7, 1)
+    plot_feature_histogram(pop, metal, disco, classical, ax6, fig6, 'black', 'Spectral Contrast Variance', 6)
+    '''
 
     plt.tight_layout()
     plt.show()

@@ -15,8 +15,9 @@ def import_data(filename):
     train = df[df["Type"]== 'Train']
     test = df[df["Type"]== 'Test']   
 
-    train_features = train[["Track ID", "GenreID", "spectral_rolloff_mean","mfcc_1_mean","spectral_centroid_mean","tempo"]]
-    test_features = test[["Track ID", "GenreID", "spectral_rolloff_mean","mfcc_1_mean","spectral_centroid_mean","tempo"]] 
+    train_features = train[["Track ID", "GenreID", "spectral_rolloff_mean","mfcc_1_mean","spectral_centroid_mean","tempo", "mfcc_1_std", "spectral_contrast_mean", "spectral_contrast_var"]]
+    test_features = test[["Track ID", "GenreID", "spectral_rolloff_mean","mfcc_1_mean","spectral_centroid_mean","tempo", "mfcc_1_std", "spectral_contrast_mean", "spectral_contrast_var"]] 
+    
     return train_features, test_features
 
 def divide_by_class(df):
