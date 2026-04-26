@@ -1,1 +1,4 @@
-project/data
+Project/data
+__pycache__/
+venv/
+.vscode
