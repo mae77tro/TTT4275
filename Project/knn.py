@@ -173,7 +173,7 @@ def test_no_clustering(x,train_features):
 if __name__ == "__main__":
     clusters, test_features = import_data("./data/GenreClassData_30s.txt")
     data_no_clustering = clusters.to_numpy()
-    test_features = test_features.to_numpy()    
+    test_features = test_features.to_numpy()
     
     # Normalizing the data:
     train_xs = data_no_clustering[:,2:6].astype(float)
