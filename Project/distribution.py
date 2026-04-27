@@ -2,10 +2,25 @@ import knn as knn
 import numpy as np
 import matplotlib.pyplot as plt
 
+def divide_by_class(df):
+    pop = df[df["GenreID"]== '0']
+    metal = df[df["GenreID"]== '1']
+    disco = df[df["GenreID"]== '2']
+    blues = df[df["GenreID"]== '3']
+    reggae = df[df["GenreID"]== '4']
+    classical = df[df["GenreID"]== '5']
+    rock = df[df["GenreID"]== '6']
+    hiphop = df[df["GenreID"]== '7']
+    country = df[df["GenreID"]== '8']
+    jazz = df[df["GenreID"]== '9']
+    return [pop, metal, disco, blues, reggae, classical, rock, hiphop, country, jazz]
+
+
+
 def fetch_features():
     train_features, test_features = knn.import_data("./data/GenreClassData_30s.txt")
     train_features['GenreID'] = train_features['GenreID'].astype(str)
-    classes = knn.divide_by_class(train_features)
+    classes = divide_by_class(train_features)
     
     pop = classes[0]
     metal = classes[1]
