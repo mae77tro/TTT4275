@@ -10,6 +10,7 @@ from torch import nn
 import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
 
 
 class NeuralNetwork(nn.Module):
@@ -112,6 +113,11 @@ if __name__ == "__main__":
     correct = (predicted == y_test).sum().item()
     total = len(y_test)
 
+    cm = confusion_matrix(y_test.cpu().numpy(), predicted.cpu().numpy())
+    print(f'CONFUSION MATRIX: {cm}')
+    # print(f"---------\n True: {y_test} \n")
+    # print(f"---------\n Predicted: {predicted} \n")
+
     print(f"Correct: {correct} ")
     print(f"Total: {total}")
 
@@ -127,7 +133,7 @@ if __name__ == "__main__":
         current_genre = genreID_toString(i)
         #print(current_genre)
 
-        mask = [y_test == i]
+        mask = y_test == i
         current_preds = predicted[mask]
         num_thisgenre = len(current_preds)
         correct_count = sum(current_preds == i)
