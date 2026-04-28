@@ -167,13 +167,11 @@ def test_no_clustering(x,train_features):
     
     #print(f"Resulting genre: {genreID_toString(result)}")
     return x[1] == result
-        
 
-# To Daniel: Fixed so I could import knn.py-functions without running the testing code.
 if __name__ == "__main__":
     clusters, test_features = import_data("./data/GenreClassData_30s.txt")
     data_no_clustering = clusters.to_numpy()
-    test_features = test_features.to_numpy()    
+    test_features = test_features.to_numpy()
     
     # Normalizing the data:
     train_xs = data_no_clustering[:,2:6].astype(float)
@@ -210,6 +208,14 @@ if __name__ == "__main__":
     # plt.title("Without clustering")
     # plt.bar(["Wrong","Correct"], counts_without_clustering)
 
+    print("\n Percentage results before clustering")
+    predicted = np.array([int(knn_no_clustering(test_features[i][2:6], data_no_clustering)) for i in range(len(test_features))])
+    for i in range(10):
+        mask = test_features[:,1].astype(int) == i
+        current_preds = predicted[mask]
+        correct_percentage = sum(current_preds == i) / len(current_preds) * 100
+        print(f"{genreID_toString(i)}: {round(correct_percentage, 2)}%")
+    print('\n')
 
     # k-nn with clustering
     data = clusters
@@ -250,6 +256,15 @@ if __name__ == "__main__":
         correct = res == test_features[i][1]
         counts_with_clustering[int(correct)] += 1
 
+    print("\nPercentage results after clustering")
+    predicted_wc = np.array([int(knn_with_clustering(test_features[i][2:6], data_with_genreid, k=1)) for i in range(len(test_features))])
+    for i in range(10):
+        mask = test_features[:,1].astype(int) == i
+        current_preds = predicted_wc[mask]
+        correct_percentage = sum(current_preds == i) / len(current_preds) * 100
+        print(f"{genreID_toString(i)}: {round(correct_percentage, 2)}%")
+    print('\n')
+    '''
     print(f"Correct with clustering: {counts_with_clustering[1]}")
     print(f"Wrong: {counts_with_clustering[0]}")
     accuracy = counts_with_clustering[1]/len(test_features) 
