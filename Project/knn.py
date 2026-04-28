@@ -40,16 +40,16 @@ def genreID_toString(genreID):
     return dict[genreID]
 
 
-def knn_no_clustering(x,clusters,k=5):
-    clusters = np.array(clusters)
+def knn_no_clustering(x,refs,k=5):
+    refs = np.array(refs)
     
-    dist = np.zeros(len(clusters)) 
-    for i in range(len(clusters)):
-        ref = {"mu": clusters[i][2:6]} 
+    dist = np.zeros(len(refs)) 
+    for i in range(len(refs)):
+        ref = {"mu": refs[i][2:6]} 
         dist[i] = euclidean_distance(x,ref)
 
     lowest_k = np.argpartition(dist,k)[:k]
-    lowest_k = clusters[lowest_k]
+    lowest_k = refs[lowest_k]
     genreIDs = lowest_k[:,1]
     counts = np.bincount(genreIDs.astype(np.int64))
     classification = np.argmax(counts)
