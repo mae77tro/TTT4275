@@ -199,8 +199,16 @@ if __name__ == "__main__":
     print(f"Correct without clustering: {counts_without_clustering[1]}")
     print(f"Wrong: {counts_without_clustering[0]}")   
 
-    plt.title("Without clustering")
-    plt.bar(["Wrong","Correct"], counts_without_clustering)
+    accuracy = counts_without_clustering[1]/len(test_features) 
+    error_rate = counts_without_clustering[0]/len(test_features) 
+ 
+
+
+    print(f"Accuracy without clustering: {round(accuracy*100,2)} %")
+    print(f"Error rate without clustering: {round(error_rate*100,2)} %")
+
+    # plt.title("Without clustering")
+    # plt.bar(["Wrong","Correct"], counts_without_clustering)
 
 
     # k-nn with clustering
@@ -244,9 +252,14 @@ if __name__ == "__main__":
 
     print(f"Correct with clustering: {counts_with_clustering[1]}")
     print(f"Wrong: {counts_with_clustering[0]}")
+    accuracy = counts_with_clustering[1]/len(test_features) 
+    error_rate = counts_with_clustering[0]/len(test_features) 
+    
+    print(f"Accuracy with clustering: {round(accuracy*100,2)} %")
+    print(f"Error rate with clustering: {round(error_rate*100,2)} %")
 
-    plt.figure() 
-    plt.title("With clustering")
-    plt.bar(["Wrong","Correct"],counts_with_clustering)
+    # plt.figure() 
+    # plt.title("With clustering")
+    # plt.bar(["Wrong","Correct"],counts_with_clustering)
 
     plt.show()

@@ -87,23 +87,28 @@ if __name__ == "__main__":
     epochs = 2000
    
     criterion = nn.CrossEntropyLoss()
-    losses = np.zeros(epochs)
-
+    training_losses = np.zeros(epochs)
+    testing_losses = np.zeros(epochs)
     for i in range(epochs): 
-        output = model(x_train)
+        training_output = model(x_train)
         target = y_train
 
-        loss = criterion(output,target)
-        
-        losses[i] = loss.item()
-        
+        testing_output = model(x_test)
+        training_loss = criterion(training_output,target)
+        testing_loss = criterion(testing_output,y_test) 
+
+
+
+        training_losses[i] = training_loss.item()
+        testing_losses[i] = testing_loss.item()
+
         if i % 50 == 0:
             #print(f'Epoch: {i} and loss: {loss}')
             pass
 
 
         optimizer.zero_grad()
-        loss.backward()
+        training_loss.backward()
         optimizer.step()
 
     outputs = model(x_test)
@@ -116,7 +121,8 @@ if __name__ == "__main__":
     print(f"Total: {total}")
 
     accuracy = correct/total
-    print(f"Accuracy: {accuracy}")
+    print(f"Accuracy: {round(accuracy*100,2)} %")
+    print(f"Error rate: {100-round(accuracy*100,2)}")
     #print('Predicted: ', ' '.join(f'{genreID_toString(predicted)}'))
 
     print(predicted)
@@ -139,7 +145,13 @@ if __name__ == "__main__":
 
         print(f"{current_genre}: {round(percentage_num,2)}%")
 
-plt.plot(losses)
+plt.plot(training_losses,label= "Training error")
+plt.plot(testing_losses,label= "Testing error")
+
+plt.title("Error during training ")
+plt.xlabel("Epochs")
+plt.ylabel("Error")
+plt.legend()
 plt.show()
 
 
