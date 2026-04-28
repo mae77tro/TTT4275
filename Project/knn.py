@@ -264,7 +264,7 @@ if __name__ == "__main__":
         correct_percentage = sum(current_preds == i) / len(current_preds) * 100
         print(f"{genreID_toString(i)}: {round(correct_percentage, 2)}%")
     print('\n')
-    '''
+    
     print(f"Correct with clustering: {counts_with_clustering[1]}")
     print(f"Wrong: {counts_with_clustering[0]}")
     accuracy = counts_with_clustering[1]/len(test_features) 
