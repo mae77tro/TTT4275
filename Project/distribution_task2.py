@@ -2,6 +2,9 @@ import knn as knn
 import numpy as np
 import matplotlib.pyplot as plt
 
+plt.rcParams['figure.figsize'] = (21,12)
+plt.rcParams['figure.dpi'] = 60
+
 def divide_by_class(df):
     pop = df[df["GenreID"]== '0']
     metal = df[df["GenreID"]== '1']
